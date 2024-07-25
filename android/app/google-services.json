@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "45471852257",
+    "project_id": "memomap-6f584",
+    "storage_bucket": "memomap-6f584.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45471852257:android:676e44a7c6cd559f9df9a0",
+        "android_client_info": {
+          "package_name": "com.example.map_memo_remember_moment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATbUMenRGWU-OhP5_TSHsLZ8OGV_78wJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

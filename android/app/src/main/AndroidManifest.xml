@@ -4,7 +4,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.map_memo_remember_moment.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""
