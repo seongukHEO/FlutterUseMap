@@ -1,8 +1,8 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.map_memo_remember_moment">
     <application
         android:label="map_memo_remember_moment"
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:name="${applicationName}">
         <activity
             android:name="com.example.map_memo_remember_moment.MainActivity"
             android:exported="true"
