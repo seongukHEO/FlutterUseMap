@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
             TextButton(
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return JoinScreen();
+                    return SignupScreen();
                   }));
                 },
                 child: Text("회원가입 하러가기", style: TextStyle(color: Colors.black),)
