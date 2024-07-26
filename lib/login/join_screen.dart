@@ -113,6 +113,16 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
                         labelText: "비밀번호",
                       ),
                     ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: MaterialButton(
+                        onPressed: (){},
+                        height: 48,
+                        minWidth: double.infinity,
+                        child: Text("가입학기", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                        color: Colors.teal,
+                      ),
+                    ),
                   ],
                 ),
               ),
