@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:map_memo_remember_moment/home.dart';
 import 'package:map_memo_remember_moment/login/join_screen.dart';
 
 
@@ -63,7 +64,11 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   MaterialButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return HomeScreen();
+                        }));
+                      },
                       height: 48,
                       minWidth: double.infinity,
                       child: Text("로그인", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
