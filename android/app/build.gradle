@@ -6,6 +6,7 @@ plugins {
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+
 }
 
 def localProperties = new Properties()
@@ -38,7 +39,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.map_memo_remember_moment"
-        minSdk = 21
+        minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
@@ -55,3 +56,7 @@ flutter {
     source = "../.."
 }
 
+
+dependencies {
+    implementation 'com.naver.maps:map-sdk:3.12.0'
+}

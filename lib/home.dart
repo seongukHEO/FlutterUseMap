@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:map_memo_remember_moment/map.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("나의 기억 리스트"),
         actions: [
           IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return NaverMapApp();
+                }));
+              },
               icon: Icon(Icons.map_outlined)
           )
         ],

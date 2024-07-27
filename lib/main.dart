@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:map_memo_remember_moment/login/login_screen.dart';
 
 import 'firebase_options.dart';
@@ -9,7 +10,15 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  await _initialize();
   runApp(const MyApp());
+}
+
+Future<void> _initialize() async {
+  await NaverMapSdk.instance.initialize(
+    clientId: '835v8c6lw9',
+    onAuthFailed: (e) => print(e),
+  );
 }
 
 class MyApp extends StatelessWidget {
