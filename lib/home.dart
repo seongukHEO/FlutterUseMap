@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:map_memo_remember_moment/homeDetail.dart';
 import 'package:map_memo_remember_moment/map.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,31 +32,34 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Container(
-                child: Expanded(
-                  child: ListView.builder(
-                      itemCount: 100,
-                      itemBuilder: (c, i){
-                        return GestureDetector(
-                          onTap: (){
-
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("안녕하세여", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
-                              Text("2024.05.05"),
-                              SizedBox(height: 20,)
-                            ],
-                          ),
-                        );
-                  }),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 100,
+                  itemBuilder: (c, i) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return HomeDetailScreen();
+                        }));
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("안녕하세요", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                          Text("2024.05.05"),
+                          SizedBox(height: 20),
+                          Divider(height: 1)
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
+
     );
   }
 }
