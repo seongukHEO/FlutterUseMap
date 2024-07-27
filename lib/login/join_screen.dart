@@ -104,6 +104,12 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
                         border: OutlineInputBorder(),
                         labelText: "이메일",
                       ),
+                      validator: (value){
+                        if (value == null || value.isEmpty) {
+                          return "이메일을 입력하세요";
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 20),
                     TextFormField(
@@ -112,6 +118,12 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
                         border: OutlineInputBorder(),
                         labelText: "비밀번호",
                       ),
+                      validator: (value){
+                        if (value == null || value.isEmpty) {
+                          return "비밀번호를 입력하세요";
+                        }
+                          return null;
+                      },
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
