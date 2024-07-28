@@ -59,7 +59,8 @@ dependencies:
 
   camera: ^0.10.5+3
   lottie: ^3.1.2
-  geolocator: ^11.1.0
+#  geolocator: ^11.1.0
+  geolocator: ^8.0.1
 
 
 
