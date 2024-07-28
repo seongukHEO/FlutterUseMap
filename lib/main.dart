@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:map_memo_remember_moment/login/login_screen.dart';
 
 import 'firebase_options.dart';
@@ -12,6 +13,13 @@ void main() async{
   );
   await _initialize();
   runApp(const MyApp());
+}
+
+Future<void> getGeoData() async {
+  LocationPermission permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+  }
 }
 
 Future<void> _initialize() async {
