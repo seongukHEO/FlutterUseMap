@@ -24,7 +24,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 }));
               },
               icon: Icon(Icons.map_outlined)
-          )
+          ),
+          IconButton(
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return NaverMapApp();
+                }));
+              },
+              icon: Icon(Icons.list)
+          ),
         ],
       ),
       body: SafeArea(

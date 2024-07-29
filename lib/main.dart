@@ -23,6 +23,7 @@ Future<void> _initialize() async {
   );
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

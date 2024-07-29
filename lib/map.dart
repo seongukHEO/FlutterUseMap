@@ -39,6 +39,9 @@ class _NaverMapAppState extends State<NaverMapApp> {
             locationButtonEnable: false,
             consumeSymbolTapEvents: false,
           ),
+          onMapTapped: (point, latLng) {
+            print("위도 : ${latLng.longitude}, 경도 : ${latLng.latitude}");
+          },
         ),
       ),
     );
