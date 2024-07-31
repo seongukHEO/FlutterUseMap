@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:map_memo_remember_moment/widget/calendar_widget.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class NaverMapApp extends StatefulWidget {
   @override
@@ -12,48 +14,13 @@ class _NaverMapAppState extends State<NaverMapApp> {
   final Completer<NaverMapController> _controller = Completer();
   NaverMapController? _mapController;
   final List<NMarker> _markers = [];
-  final _formKey = GlobalKey<FormState>();
-
-  TextEditingController titleTEC = TextEditingController();
-
-  TextEditingController contentTEC = TextEditingController();
-
-  TextEditingController dateTEC = TextEditingController();
 
   void _onMapTap(Point point, NLatLng latlng) async {
     showDialog(
         context: context,
         builder: (context){
-          return AlertDialog(
-            title: Align(
-              alignment: Alignment.center,
-                child: Text("메모 입력", style: TextStyle(fontWeight: FontWeight.bold),)),
-            content: Container(
-              height: 700,
-              width: 400,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: titleTEC,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "메모 제목 입력"
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                    TextFormField(
-                      controller: contentTEC,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "메모 내용 입력"
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          return CalendarWidget(
+            onSave: (DateTime selectDate, String title, String content) {  },
           );
         }
     );
