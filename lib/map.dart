@@ -3,20 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: NaverMapApp(),
-    );
-  }
-}
-
 class NaverMapApp extends StatefulWidget {
   @override
   _NaverMapAppState createState() => _NaverMapAppState();
@@ -26,8 +12,51 @@ class _NaverMapAppState extends State<NaverMapApp> {
   final Completer<NaverMapController> _controller = Completer();
   NaverMapController? _mapController;
   final List<NMarker> _markers = [];
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController titleTEC = TextEditingController();
+
+  TextEditingController contentTEC = TextEditingController();
+
+  TextEditingController dateTEC = TextEditingController();
 
   void _onMapTap(Point point, NLatLng latlng) async {
+    showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Align(
+              alignment: Alignment.center,
+                child: Text("메모 입력", style: TextStyle(fontWeight: FontWeight.bold),)),
+            content: Container(
+              height: 700,
+              width: 400,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: titleTEC,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "메모 제목 입력"
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    TextFormField(
+                      controller: contentTEC,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "메모 내용 입력"
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+    );
     final newMarker = NMarker(
       id: "test_${DateTime.now().millisecondsSinceEpoch}",
       position: latlng,
@@ -74,7 +103,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
           locationButtonEnable: false,
           consumeSymbolTapEvents: false,
         ),
-        onMapTapped: _onMapTap,
+        onMapTapped: _onMapTap
       ),
     );
   }
