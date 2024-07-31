@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:map_memo_remember_moment/homeDetail.dart';
-import 'package:map_memo_remember_moment/map.dart';
+import 'package:map_memo_remember_moment/screen/homeDetail.dart';
+import 'package:map_memo_remember_moment/screen/map.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

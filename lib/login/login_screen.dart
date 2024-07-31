@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:map_memo_remember_moment/home.dart';
+import 'package:map_memo_remember_moment/screen/home.dart';
 import 'package:map_memo_remember_moment/login/join_screen.dart';
 
 
@@ -35,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Form(
+              key: _formKey,
                 child:Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
