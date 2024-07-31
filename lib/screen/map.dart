@@ -17,6 +17,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
 
   void _onMapTap(Point point, NLatLng latlng) async {
     showDialog(
+      barrierDismissible: false,
         context: context,
         builder: (context){
           return CalendarWidget(

@@ -12,25 +12,33 @@ class CalendarWidget extends StatefulWidget {
 
 class _CalendarWidgetState extends State<CalendarWidget> {
 
+  void showSnackbar(String message){
+    var snackBar = SnackBar(
+      content: Text(message, style: TextStyle(color: Colors.black),),
+      duration: Duration(seconds: 1),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController titleTEC = TextEditingController();
 
   TextEditingController contentTEC = TextEditingController();
 
-  TextEditingController dateTEC = TextEditingController();
-
   DateTime _focusDay = DateTime.now();
   DateTime? _selectDay;
 
   @override
   Widget build(BuildContext context) {
+
     return AlertDialog(
       title: Align(
           alignment: Alignment.center,
           child: Text("메모 입력", style: TextStyle(fontWeight: FontWeight.bold),)),
       content: Container(
-        height: 700,
+        height: 540,
         width: 400,
         child: Form(
           key: _formKey,
@@ -71,6 +79,34 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                             _focusDay = focusedDay;
                           });
                         },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                              onPressed: (){
+                                Navigator.pop(context);
+                              },
+                              child: Text("취소")
+                          ),
+                          TextButton(
+                              onPressed: (){
+                                if (titleTEC.text.isEmpty || titleTEC.text == null) {
+                                  showSnackbar("메모 제목을 입력하세요");
+                                } else if (contentTEC.text.isEmpty || contentTEC.text == null) {
+                                  showSnackbar("메모 내용을 입력하세요");
+                                } else{
+                                  widget.onSave(
+                                    _selectDay ?? _focusDay,
+                                    titleTEC.text,
+                                    contentTEC.text
+                                  );
+                                  Navigator.pop(context);
+                                }
+                              },
+                              child: Text("확인")
+                          ),
+                        ],
                       )
                     ],
                   );
