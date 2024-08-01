@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:map_memo_remember_moment/screen/homeDetail.dart';
 import 'package:map_memo_remember_moment/screen/map.dart';
+import 'package:map_memo_remember_moment/screen/map_food.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return NaverMapApp();
+                  return MapFood();
                 }));
               },
               icon: Icon(Icons.list)

@@ -36,6 +36,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
 
               final controller = await _controller.future;
               controller.addOverlay(newMarker);
+              print("날짜 : ${selectDate}");
             },
           );
         }
