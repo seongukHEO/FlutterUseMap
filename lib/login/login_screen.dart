@@ -84,6 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: Text("회원가입 하러가기", style: TextStyle(color: Colors.black),)
             ),
+            GestureDetector(
+              onTap: (){
+                
+              },
+              child: Image.asset("assets/google_login.png"),
+            )
           ],
         ),
       ),

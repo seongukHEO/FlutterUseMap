@@ -1,4 +1,6 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,6 +45,40 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
   TextEditingController emailController = TextEditingController();
   TextEditingController pwController = TextEditingController();
 
+
+  Future<bool> signUp(String emailAddress, String password) async{
+    try{
+      final  credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailAddress, password: password);
+      await FirebaseFirestore.instance.collection("Users").add({
+        "uid": credential.user?.uid ?? "",
+        "email": credential.user?.email ?? ""
+      });
+      return true;
+    } on FirebaseAuthException catch (e){
+      if (e.code == "weak-password") {
+        final snackBar = SnackBar(
+          content: Text("비밀번호 보안이 약합니다", style: TextStyle(color: Colors.black),),
+          duration: Duration(seconds: 1),
+          backgroundColor: Colors.white,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else if (e.code == "email-already-in-use") {
+        final snackBar = SnackBar(
+          content: Text("이미 등록된 이메일이 있습니다", style: TextStyle(color: Colors.black),),
+          duration: Duration(seconds: 1),
+          backgroundColor: Colors.white,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+      return false;
+
+    } catch(e){
+      return false;
+    }
+  }
+
+
+
   void setAnimation() {
     _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 2500));
     _logoCount = StepTween(begin: 0, end: _currentString.length).animate(
@@ -77,6 +113,8 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
   @override
   void dispose() {
     _animationController.dispose();
+    emailController.dispose();
+    pwController.dispose();
     super.dispose();
   }
 
@@ -132,6 +170,7 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
                         border: OutlineInputBorder(),
                         labelText: "비밀번호",
                       ),
+                      obscureText: true,
                       validator: (value){
                         if (value == null || value.isEmpty) {
                           return "비밀번호를 입력하세요";
@@ -142,13 +181,25 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                       child: MaterialButton(
-                        onPressed: (){
+                        onPressed: () async {
                           if (emailController.text.isEmpty || emailController.text == null) {
                             showSnackbar("이메일을 입력 해주세요");
                           }  else if (pwController.text.isEmpty || pwController.text == null) {
                             showSnackbar("비밀번호를 입력 해주세여");
                           } else{
-                            context.go("/login");
+
+                            final result = await signUp(
+                            emailController.text.trim(),
+                              pwController.text.trim()
+                            );
+                            if (result) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("회원가입 성공")));
+                                context.go("/login");
+                              }  else {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("회원가입 실패")));
+                              }
+                            }
                           }
                         },
                         height: 48,
