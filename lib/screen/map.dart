@@ -21,26 +21,25 @@ class _NaverMapAppState extends State<NaverMapApp> {
         context: context,
         builder: (context){
           return CalendarWidget(
-            onSave: (DateTime selectDate, String title, String content) {  },
+            onSave: (DateTime selectDate, String title, String content) async {
+              final newMarker = NMarker(
+                id: "test_${DateTime.now().millisecondsSinceEpoch}",
+                position: latlng,
+                caption: NOverlayCaption(
+                  text: "${title}",
+                ),
+              );
+
+              setState(() {
+                _markers.add(newMarker);
+              });
+
+              final controller = await _controller.future;
+              controller.addOverlay(newMarker);
+            },
           );
         }
     );
-    final newMarker = NMarker(
-      id: "test_${DateTime.now().millisecondsSinceEpoch}",
-      position: latlng,
-      caption: NOverlayCaption(
-        text: "위도: ${latlng.latitude}, 경도: ${latlng.longitude}",
-      ),
-    );
-
-    setState(() {
-      _markers.add(newMarker);
-    });
-
-    final controller = await _controller.future;
-    controller.addOverlay(newMarker);
-
-    print("위도 : ${latlng.latitude}, 경도 : ${latlng.longitude}");
   }
 
   @override
