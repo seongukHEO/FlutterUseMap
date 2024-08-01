@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,11 +14,24 @@ class MyApp extends StatelessWidget {
 }
 
 class SignupScreen extends StatefulWidget {
+
+
   @override
   _SignupScreenState createState() => _SignupScreenState();
 }
 
 class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMixin {
+
+  void showSnackbar(String message){
+    var snackBar = SnackBar(
+      content: Text(message, style: TextStyle(color: Colors.black),),
+      duration: Duration(seconds: 1),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
   final _formKey = GlobalKey<FormState>();
 
   static const String _logoMessage = "RememberMoment";
@@ -128,7 +142,15 @@ class _SignupScreenState extends State<SignupScreen> with TickerProviderStateMix
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                       child: MaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          if (emailController.text.isEmpty || emailController.text == null) {
+                            showSnackbar("이메일을 입력 해주세요");
+                          }  else if (pwController.text.isEmpty || pwController.text == null) {
+                            showSnackbar("비밀번호를 입력 해주세여");
+                          } else{
+                            context.go("/login");
+                          }
+                        },
                         height: 48,
                         minWidth: double.infinity,
                         child: Text("가입학기", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
