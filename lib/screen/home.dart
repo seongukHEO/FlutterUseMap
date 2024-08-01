@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:map_memo_remember_moment/screen/homeDetail.dart';
 import 'package:map_memo_remember_moment/screen/map.dart';
 import 'package:map_memo_remember_moment/screen/map_food.dart';
@@ -20,17 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return NaverMapApp();
-                }));
+                context.go("/map");
               },
               icon: Icon(Icons.map_outlined)
           ),
           IconButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return MapFood();
-                }));
+                context.go("/map/food");
               },
               icon: Icon(Icons.list)
           ),
@@ -47,9 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (c, i) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return HomeDetailScreen();
-                        }));
+                        context.go("/homeDetail");
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

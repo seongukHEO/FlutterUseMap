@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:map_memo_remember_moment/screen/home.dart';
 import 'package:map_memo_remember_moment/login/join_screen.dart';
@@ -66,9 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   MaterialButton(
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return HomeScreen();
-                        }));
+                        //유효성 검사 추가하기
+                        context.go("/");
                       },
                       height: 48,
                       minWidth: double.infinity,
@@ -80,9 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return SignupScreen();
-                  }));
+                  context.go("/join");
                 },
                 child: Text("회원가입 하러가기", style: TextStyle(color: Colors.black),)
             ),
