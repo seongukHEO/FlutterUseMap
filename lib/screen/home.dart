@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:map_memo_remember_moment/screen/homeDetail.dart';
 import 'package:map_memo_remember_moment/screen/map.dart';
 import 'package:map_memo_remember_moment/screen/map_food.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.map_outlined)
           ),
           IconButton(
-              onPressed: (){
+              onPressed: ()async{
                 context.go("/map/food");
+                SharedPreferences preferences = await SharedPreferences.getInstance();
+                final userUid = preferences.getString("uid");
+                print("uid : ${userUid}");
               },
               icon: Icon(Icons.list)
           ),

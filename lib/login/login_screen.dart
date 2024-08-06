@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:map_memo_remember_moment/screen/home.dart';
 import 'package:map_memo_remember_moment/login/join_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -26,6 +27,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<UserCredential?> signIn(String email, String password)async{
     try{
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      final user = credential.user;
+      if (user != null) {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        await preferences.setString("uid", user.uid);
+      }
       return credential;
     }on FirebaseAuthException catch(e){
       if (e.code == "user-not-found") {
