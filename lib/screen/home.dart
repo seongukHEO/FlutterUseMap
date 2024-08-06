@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +6,8 @@ import 'package:map_memo_remember_moment/screen/homeDetail.dart';
 import 'package:map_memo_remember_moment/screen/map.dart';
 import 'package:map_memo_remember_moment/screen/map_food.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/memo.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +17,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  Future<List<Memo>> getMemo()async{
+    final pref = await SharedPreferences.getInstance();
+    final userUid = pref.getString('uid');
+    final db = FirebaseFirestore.instance;
+    final resp = await db.collection("memo").where("userUid", isEqualTo: userUid).get();
+    List<Memo> items = [];
+    for(var doc in resp.docs){
+      final item = Memo.fromJson(doc.data());
+      final realItem = item.copyWith(userUid: userUid);
+      items.add(realItem);
+    }
+    return items;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,24 +61,34 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  itemCount: 100,
-                  itemBuilder: (c, i) {
-                    return GestureDetector(
-                      onTap: () {
-                        context.go("/homeDetail");
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("안녕하세요", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                          Text("2024.05.05"),
-                          SizedBox(height: 20),
-                          Divider(height: 1)
-                        ],
-                      ),
-                    );
-                  },
+                child: FutureBuilder(
+                  future: getMemo(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final items = snapshot.data ?? [];
+                      return ListView.builder(
+                        itemCount: items.length,
+                        itemBuilder: (c, i) {
+                          final item = items[i];
+                          return GestureDetector(
+                            onTap: () {
+                              context.go("/homeDetail");
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(item.title??"값이 없어요,,", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                                Text(item.date??"0000년"),
+                                SizedBox(height: 20),
+                                Divider(height: 1)
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator(),);
+                  }
                 ),
               ),
             ],
