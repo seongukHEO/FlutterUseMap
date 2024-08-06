@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:map_memo_remember_moment/model/memo.dart';
 import 'package:map_memo_remember_moment/screen/home.dart';
 import 'package:map_memo_remember_moment/screen/homeDetail.dart';
 import 'package:map_memo_remember_moment/screen/map.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           routes: [
             GoRoute(
               path: "homeDetail",
-              builder: (context, state) => HomeDetailScreen(),
+              builder: (context, state) => HomeDetailScreen(memo: state.extra as Memo),
             ),
             GoRoute(
               path: "map/food",

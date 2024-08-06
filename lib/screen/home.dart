@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final item = items[i];
                           return GestureDetector(
                             onTap: () {
-                              context.go("/homeDetail");
+                              context.go("/homeDetail", extra: item);
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
