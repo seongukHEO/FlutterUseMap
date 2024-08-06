@@ -24,13 +24,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController pwController = TextEditingController();
 
+  late bool _rememberMe = false;
+
   Future<UserCredential?> signIn(String email, String password)async{
     try{
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       final user = credential.user;
       if (user != null) {
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        await preferences.setString("uid", user.uid);
+        if (_rememberMe == true) {
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          await preferences.setString("uid", user.uid);
+        }
       }
       return credential;
     }on FirebaseAuthException catch(e){
@@ -102,7 +106,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         obscureText: true,
                         controller: pwController,
-                      )
+                      ),
+                      CheckboxListTile(
+                        title: Text("자동 로그인"),
+                        value: _rememberMe,
+                        onChanged: (bool? value){
+                          setState(() {
+                            _rememberMe = value ?? false;
+                          });
+                        },
+                      ),
                     ],
                   ),
                 )
