@@ -8,6 +8,7 @@ part 'memo.g.dart';
 @freezed
 sealed class Memo with _$Memo{
   factory Memo({
+    String? userUid,
     String? title,
     String? content,
     String? date,

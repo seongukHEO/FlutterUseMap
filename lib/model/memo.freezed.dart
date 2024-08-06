@@ -20,6 +20,7 @@ Memo _$MemoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Memo {
+  String? get userUid => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $MemoCopyWith<$Res> {
       _$MemoCopyWithImpl<$Res, Memo>;
   @useResult
   $Res call(
-      {String? title,
+      {String? userUid,
+      String? title,
       String? content,
       String? date,
       int? timeStamp,
@@ -59,6 +61,7 @@ class _$MemoCopyWithImpl<$Res, $Val extends Memo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userUid = freezed,
     Object? title = freezed,
     Object? content = freezed,
     Object? date = freezed,
@@ -67,6 +70,10 @@ class _$MemoCopyWithImpl<$Res, $Val extends Memo>
     Object? lng = freezed,
   }) {
     return _then(_value.copyWith(
+      userUid: freezed == userUid
+          ? _value.userUid
+          : userUid // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -103,7 +110,8 @@ abstract class _$$MemoImplCopyWith<$Res> implements $MemoCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? title,
+      {String? userUid,
+      String? title,
       String? content,
       String? date,
       int? timeStamp,
@@ -121,6 +129,7 @@ class __$$MemoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userUid = freezed,
     Object? title = freezed,
     Object? content = freezed,
     Object? date = freezed,
@@ -129,6 +138,10 @@ class __$$MemoImplCopyWithImpl<$Res>
     Object? lng = freezed,
   }) {
     return _then(_$MemoImpl(
+      userUid: freezed == userUid
+          ? _value.userUid
+          : userUid // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -161,7 +174,8 @@ class __$$MemoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MemoImpl implements _Memo {
   _$MemoImpl(
-      {this.title,
+      {this.userUid,
+      this.title,
       this.content,
       this.date,
       this.timeStamp,
@@ -171,6 +185,8 @@ class _$MemoImpl implements _Memo {
   factory _$MemoImpl.fromJson(Map<String, dynamic> json) =>
       _$$MemoImplFromJson(json);
 
+  @override
+  final String? userUid;
   @override
   final String? title;
   @override
@@ -186,7 +202,7 @@ class _$MemoImpl implements _Memo {
 
   @override
   String toString() {
-    return 'Memo(title: $title, content: $content, date: $date, timeStamp: $timeStamp, lat: $lat, lng: $lng)';
+    return 'Memo(userUid: $userUid, title: $title, content: $content, date: $date, timeStamp: $timeStamp, lat: $lat, lng: $lng)';
   }
 
   @override
@@ -194,6 +210,7 @@ class _$MemoImpl implements _Memo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MemoImpl &&
+            (identical(other.userUid, userUid) || other.userUid == userUid) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.date, date) || other.date == date) &&
@@ -205,8 +222,8 @@ class _$MemoImpl implements _Memo {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, content, date, timeStamp, lat, lng);
+  int get hashCode => Object.hash(
+      runtimeType, userUid, title, content, date, timeStamp, lat, lng);
 
   @JsonKey(ignore: true)
   @override
@@ -224,7 +241,8 @@ class _$MemoImpl implements _Memo {
 
 abstract class _Memo implements Memo {
   factory _Memo(
-      {final String? title,
+      {final String? userUid,
+      final String? title,
       final String? content,
       final String? date,
       final int? timeStamp,
@@ -233,6 +251,8 @@ abstract class _Memo implements Memo {
 
   factory _Memo.fromJson(Map<String, dynamic> json) = _$MemoImpl.fromJson;
 
+  @override
+  String? get userUid;
   @override
   String? get title;
   @override

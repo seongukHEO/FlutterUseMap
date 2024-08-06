@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:map_memo_remember_moment/model/memo.dart';
 import 'package:map_memo_remember_moment/widget/calendar_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class NaverMapApp extends StatefulWidget {
@@ -17,8 +18,9 @@ class _NaverMapAppState extends State<NaverMapApp> {
   NaverMapController? _mapController;
   final List<NMarker> _markers = [];
 
-  Future addMemo(String title, String content, String date, int timeStamp, double lat, double lng)async{
+  Future addMemo(String userUid, String title, String content, String date, int timeStamp, double lat, double lng)async{
     final memo = Memo(
+      userUid: userUid,
       title: title,
       content: content,
       date: date,
@@ -44,10 +46,12 @@ class _NaverMapAppState extends State<NaverMapApp> {
                 ),
               );
               final timeStamp = DateTime.now().millisecondsSinceEpoch;
+              final prefs = await SharedPreferences.getInstance();
+              final userUid = prefs.getString('uid');
 
               setState(() {
                 _markers.add(newMarker);
-                addMemo(title, content, selectDate.toString(), timeStamp, latlng.latitude, latlng.longitude);
+                addMemo(userUid??"", title, content, selectDate.toString(), timeStamp, latlng.latitude, latlng.longitude);
               });
 
               final controller = await _controller.future;
