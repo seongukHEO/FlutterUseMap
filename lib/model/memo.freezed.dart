@@ -24,7 +24,8 @@ mixin _$Memo {
   String? get content => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
   int? get timeStamp => throw _privateConstructorUsedError;
-  String? get imgUrl => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
+  double? get lng => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $MemoCopyWith<$Res> {
       String? content,
       String? date,
       int? timeStamp,
-      String? imgUrl});
+      double? lat,
+      double? lng});
 }
 
 /// @nodoc
@@ -61,7 +63,8 @@ class _$MemoCopyWithImpl<$Res, $Val extends Memo>
     Object? content = freezed,
     Object? date = freezed,
     Object? timeStamp = freezed,
-    Object? imgUrl = freezed,
+    Object? lat = freezed,
+    Object? lng = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
@@ -80,10 +83,14 @@ class _$MemoCopyWithImpl<$Res, $Val extends Memo>
           ? _value.timeStamp
           : timeStamp // ignore: cast_nullable_to_non_nullable
               as int?,
-      imgUrl: freezed == imgUrl
-          ? _value.imgUrl
-          : imgUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lng: freezed == lng
+          ? _value.lng
+          : lng // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -100,7 +107,8 @@ abstract class _$$MemoImplCopyWith<$Res> implements $MemoCopyWith<$Res> {
       String? content,
       String? date,
       int? timeStamp,
-      String? imgUrl});
+      double? lat,
+      double? lng});
 }
 
 /// @nodoc
@@ -117,7 +125,8 @@ class __$$MemoImplCopyWithImpl<$Res>
     Object? content = freezed,
     Object? date = freezed,
     Object? timeStamp = freezed,
-    Object? imgUrl = freezed,
+    Object? lat = freezed,
+    Object? lng = freezed,
   }) {
     return _then(_$MemoImpl(
       title: freezed == title
@@ -136,10 +145,14 @@ class __$$MemoImplCopyWithImpl<$Res>
           ? _value.timeStamp
           : timeStamp // ignore: cast_nullable_to_non_nullable
               as int?,
-      imgUrl: freezed == imgUrl
-          ? _value.imgUrl
-          : imgUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lng: freezed == lng
+          ? _value.lng
+          : lng // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -148,7 +161,12 @@ class __$$MemoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MemoImpl implements _Memo {
   _$MemoImpl(
-      {this.title, this.content, this.date, this.timeStamp, this.imgUrl});
+      {this.title,
+      this.content,
+      this.date,
+      this.timeStamp,
+      this.lat,
+      this.lng});
 
   factory _$MemoImpl.fromJson(Map<String, dynamic> json) =>
       _$$MemoImplFromJson(json);
@@ -162,11 +180,13 @@ class _$MemoImpl implements _Memo {
   @override
   final int? timeStamp;
   @override
-  final String? imgUrl;
+  final double? lat;
+  @override
+  final double? lng;
 
   @override
   String toString() {
-    return 'Memo(title: $title, content: $content, date: $date, timeStamp: $timeStamp, imgUrl: $imgUrl)';
+    return 'Memo(title: $title, content: $content, date: $date, timeStamp: $timeStamp, lat: $lat, lng: $lng)';
   }
 
   @override
@@ -179,13 +199,14 @@ class _$MemoImpl implements _Memo {
             (identical(other.date, date) || other.date == date) &&
             (identical(other.timeStamp, timeStamp) ||
                 other.timeStamp == timeStamp) &&
-            (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl));
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lng, lng) || other.lng == lng));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, title, content, date, timeStamp, imgUrl);
+      Object.hash(runtimeType, title, content, date, timeStamp, lat, lng);
 
   @JsonKey(ignore: true)
   @override
@@ -207,7 +228,8 @@ abstract class _Memo implements Memo {
       final String? content,
       final String? date,
       final int? timeStamp,
-      final String? imgUrl}) = _$MemoImpl;
+      final double? lat,
+      final double? lng}) = _$MemoImpl;
 
   factory _Memo.fromJson(Map<String, dynamic> json) = _$MemoImpl.fromJson;
 
@@ -220,7 +242,9 @@ abstract class _Memo implements Memo {
   @override
   int? get timeStamp;
   @override
-  String? get imgUrl;
+  double? get lat;
+  @override
+  double? get lng;
   @override
   @JsonKey(ignore: true)
   _$$MemoImplCopyWith<_$MemoImpl> get copyWith =>

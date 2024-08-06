@@ -11,7 +11,8 @@ _$MemoImpl _$$MemoImplFromJson(Map<String, dynamic> json) => _$MemoImpl(
       content: json['content'] as String?,
       date: json['date'] as String?,
       timeStamp: (json['timeStamp'] as num?)?.toInt(),
-      imgUrl: json['imgUrl'] as String?,
+      lat: (json['lat'] as num?)?.toDouble(),
+      lng: (json['lng'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$MemoImplToJson(_$MemoImpl instance) =>
@@ -20,5 +21,6 @@ Map<String, dynamic> _$$MemoImplToJson(_$MemoImpl instance) =>
       'content': instance.content,
       'date': instance.date,
       'timeStamp': instance.timeStamp,
-      'imgUrl': instance.imgUrl,
+      'lat': instance.lat,
+      'lng': instance.lng,
     };
