@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map_memo_remember_moment/screen/homeDetail.dart';
 import 'package:map_memo_remember_moment/screen/map.dart';
-import 'package:map_memo_remember_moment/screen/map_food.dart';
+import 'package:map_memo_remember_moment/widget/logout_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/memo.dart';
@@ -45,13 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.map_outlined)
           ),
           IconButton(
-              onPressed: ()async{
-                context.go("/map/food");
-                SharedPreferences preferences = await SharedPreferences.getInstance();
-                final userUid = preferences.getString("uid");
-                print("uid : ${userUid}");
+              onPressed: (){
+                showDialog(
+                    context: context,
+                    builder: (context){
+                      return LogoutWidget();
+                    }
+                );
               },
-              icon: Icon(Icons.list)
+              icon: Icon(Icons.logout)
           ),
         ],
       ),

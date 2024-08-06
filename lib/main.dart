@@ -4,7 +4,6 @@ import 'package:map_memo_remember_moment/model/memo.dart';
 import 'package:map_memo_remember_moment/screen/home.dart';
 import 'package:map_memo_remember_moment/screen/homeDetail.dart';
 import 'package:map_memo_remember_moment/screen/map.dart';
-import 'package:map_memo_remember_moment/screen/map_food.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:go_router/go_router.dart';
@@ -50,10 +49,6 @@ class MyApp extends StatelessWidget {
             GoRoute(
               path: "homeDetail",
               builder: (context, state) => HomeDetailScreen(memo: state.extra as Memo),
-            ),
-            GoRoute(
-              path: "map/food",
-              builder: (context, state) => MapFood(),
             ),
             GoRoute(
               path: "map",
