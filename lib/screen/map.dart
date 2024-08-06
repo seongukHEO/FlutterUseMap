@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:map_memo_remember_moment/model/memo.dart';
 import 'package:map_memo_remember_moment/widget/calendar_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -14,6 +16,18 @@ class _NaverMapAppState extends State<NaverMapApp> {
   final Completer<NaverMapController> _controller = Completer();
   NaverMapController? _mapController;
   final List<NMarker> _markers = [];
+
+  Future addMemo(String title, String content, String date, int timeStamp, double lat, double lng)async{
+    final memo = Memo(
+      title: title,
+      content: content,
+      date: date,
+      timeStamp: timeStamp,
+      lat: lat,
+      lng: lng
+    );
+    await FirebaseFirestore.instance.collection('memo').add(memo.toJson());
+  }
 
   void _onMapTap(Point point, NLatLng latlng) async {
     showDialog(
@@ -29,9 +43,11 @@ class _NaverMapAppState extends State<NaverMapApp> {
                   text: "${title}",
                 ),
               );
+              final timeStamp = DateTime.now().millisecondsSinceEpoch;
 
               setState(() {
                 _markers.add(newMarker);
+                addMemo(title, content, selectDate.toString(), timeStamp, latlng.latitude, latlng.longitude);
               });
 
               final controller = await _controller.future;
