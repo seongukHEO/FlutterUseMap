@@ -21,8 +21,18 @@ class _NaverMapAppState extends State<NaverMapApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _initializeMapAndData();
+  }
+
+  Future<void> _initializeMapAndData() async {
+    final controller = await _controller.future;
+    setState(() {
+      _mapController = controller;
+    });
     _getMemoData();
   }
+
+
 
   //메모 가져오기
   void _getMemoData()async{
