@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LogoutWidget extends StatefulWidget {
   const LogoutWidget({super.key});
@@ -26,8 +28,10 @@ class _LogoutWidgetState extends State<LogoutWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                      onPressed: (){
-              
+                      onPressed: ()async{
+                        final pref = await SharedPreferences.getInstance();
+                        await pref.remove('uid');
+                        context.go('/login');
                       },
                       child: Text("네")
                   ),
