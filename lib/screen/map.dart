@@ -6,7 +6,6 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:map_memo_remember_moment/model/memo.dart';
 import 'package:map_memo_remember_moment/widget/calendar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class NaverMapApp extends StatefulWidget {
   @override
@@ -18,6 +17,48 @@ class _NaverMapAppState extends State<NaverMapApp> {
   NaverMapController? _mapController;
   final List<NMarker> _markers = [];
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getMemoData();
+  }
+
+  //메모 가져오기
+  void _getMemoData()async{
+    final pref = await SharedPreferences.getInstance();
+    final userUid = pref.getString('uid');
+    
+    if (userUid != null) {
+      final db = FirebaseFirestore.instance;
+      final resp = db.collection('memo').where('userUid', isEqualTo: userUid).snapshots()
+      .listen((snapshot){
+        final memos = snapshot.docs.map((doc) => Memo.fromJson(doc.data() as Map<String, dynamic>)).toList();
+        _updateMarker(memos);
+      });
+    }  
+  }
+  
+  //마커 업데이트
+  void _updateMarker(List<Memo> memos){
+    setState(() {
+      for(var memo in memos){
+        if (memo != null) {
+          final marker = NMarker(
+              id: "${memo.title??""}",
+              position: NLatLng(memo.lat?.toDouble()??0.0, memo.lng?.toDouble()??0.0),
+              caption: NOverlayCaption(
+                  text: memo.title??""
+              )
+          );
+          _markers.add(marker);
+          _mapController?.addOverlay(marker);
+        };
+      }
+    });
+  }
+
+  //메모 저장
   Future addMemo(String userUid, String title, String content, String date, int timeStamp, double lat, double lng)async{
     final memo = Memo(
       userUid: userUid,
@@ -38,25 +79,25 @@ class _NaverMapAppState extends State<NaverMapApp> {
         builder: (context){
           return CalendarWidget(
             onSave: (DateTime selectDate, String title, String content) async {
-              final newMarker = NMarker(
-                id: "test_${DateTime.now().millisecondsSinceEpoch}",
-                position: latlng,
-                caption: NOverlayCaption(
-                  text: "${title}",
-                ),
-              );
+              // final newMarker = NMarker(
+              //   id: "test_${DateTime.now().millisecondsSinceEpoch}",
+              //   position: latlng,
+              //   caption: NOverlayCaption(
+              //     text: "${title}",
+              //   ),
+              // );
               final timeStamp = DateTime.now().millisecondsSinceEpoch;
               final prefs = await SharedPreferences.getInstance();
               final userUid = prefs.getString('uid');
 
               setState(() {
-                _markers.add(newMarker);
+               // _markers.add(newMarker);
                 addMemo(userUid??"", title, content, selectDate.toString(), timeStamp, latlng.latitude, latlng.longitude);
               });
 
-              final controller = await _controller.future;
-              controller.addOverlay(newMarker);
-              print("날짜 : ${selectDate}");
+              // final controller = await _controller.future;
+              // controller.addOverlay(newMarker);
+              // print("날짜 : ${selectDate}");
             },
           );
         }
